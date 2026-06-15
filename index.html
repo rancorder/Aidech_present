@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Aidech Management｜Web Slides</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <main id="deck" class="deck" aria-live="polite">
+    <section class="slide-stage">
+      <div class="slide-meta">
+        <span id="counter">01 / 10</span>
+        <span id="slideTitle">Aidech Management</span>
+      </div>
+      <img id="slideImage" class="slide-image" alt="スライド画像" />
+      <div id="fallback" class="fallback" hidden>
+        <h1 id="fallbackTitle"></h1>
+        <p>画像を読み込めませんでした。Google Driveの共有設定をご確認ください。</p>
+      </div>
+    </section>
+
+    <aside id="notesPanel" class="panel notes-panel" aria-hidden="true">
+      <div class="panel-head">
+        <strong>話す台本</strong>
+        <button id="closeNotes" type="button">閉じる</button>
+      </div>
+      <h2 id="notesTitle"></h2>
+      <p id="notesText"></p>
+    </aside>
+
+    <aside id="scriptPanel" class="panel script-panel" aria-hidden="true">
+      <div class="panel-head">
+        <strong>台本から操作</strong>
+        <button id="closeScript" type="button">閉じる</button>
+      </div>
+      <div id="scriptList" class="script-list"></div>
+    </aside>
+
+    <aside id="thumbPanel" class="panel thumb-panel" aria-hidden="true">
+      <div class="panel-head">
+        <strong>スライド一覧</strong>
+        <button id="closeThumbs" type="button">閉じる</button>
+      </div>
+      <div id="thumbList" class="thumb-list"></div>
+    </aside>
+
+    <nav class="control-bar">
+      <button id="prevBtn" type="button">← 戻る</button>
+      <button id="nextBtn" type="button">次へ →</button>
+      <button id="noteBtn" type="button">N 台本</button>
+      <button id="scriptBtn" type="button">S 台本操作</button>
+      <button id="thumbBtn" type="button">M 一覧</button>
+      <button id="fullBtn" type="button">F 全画面</button>
+    </nav>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>
