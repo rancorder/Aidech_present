@@ -1,0 +1,139 @@
+.deckLauncher{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:grid;
+  place-items:center;
+  padding:24px;
+  background:
+    radial-gradient(circle at 12% 18%,rgba(224,138,91,.18),transparent 28%),
+    radial-gradient(circle at 88% 82%,rgba(8,27,61,.16),transparent 32%),
+    linear-gradient(135deg,#fff 0%,#f7f3ea 52%,#eef2f7 100%);
+}
+.deckLauncherCard{
+  width:min(920px,100%);
+  padding:46px;
+  border:1px solid rgba(8,27,61,.12);
+  border-radius:28px;
+  background:rgba(255,255,255,.94);
+  box-shadow:0 34px 90px rgba(8,27,61,.2);
+}
+.deckLauncherBrand{
+  color:#c8663c;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.18em;
+}
+.deckLauncherCard h1{
+  margin-top:10px;
+  color:#081b3d;
+  font-size:clamp(32px,5vw,58px);
+  letter-spacing:-.04em;
+}
+.deckLauncherLead{
+  margin-top:12px;
+  color:#5b6475;
+  font-size:16px;
+  line-height:1.8;
+}
+.deckLauncherChoices{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+  margin-top:34px;
+}
+.deckChoice{
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  align-items:center;
+  gap:18px;
+  min-height:150px;
+  padding:24px;
+  border:2px solid rgba(8,27,61,.12);
+  border-radius:22px;
+  background:#fff;
+  color:#081b3d;
+  text-align:left;
+  cursor:pointer;
+  transition:.18s ease;
+}
+.deckChoice:hover{
+  transform:translateY(-3px);
+  border-color:rgba(200,102,60,.5);
+  box-shadow:0 18px 38px rgba(8,27,61,.12);
+}
+.deckChoice.corporate{
+  background:linear-gradient(145deg,#fff 0%,#fff5ed 100%);
+}
+.deckChoiceIcon{
+  display:grid;
+  place-items:center;
+  width:64px;
+  height:64px;
+  border-radius:18px;
+  background:#081b3d;
+  color:#fff;
+  font-size:25px;
+  font-weight:900;
+}
+.deckChoice.corporate .deckChoiceIcon{background:#c8663c}
+.deckChoiceText{display:flex;flex-direction:column;gap:8px}
+.deckChoiceText b{font-size:25px}
+.deckChoiceText small{color:#5b6475;font-size:14px;line-height:1.5}
+.deckChoiceArrow{font-size:28px;font-weight:900;color:#c8663c}
+.deckLauncherNote{
+  margin-top:24px;
+  padding-top:20px;
+  border-top:1px solid rgba(8,27,61,.1);
+  color:#6a7280;
+  font-size:13px;
+  line-height:1.7;
+}
+.deckSwitcher{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-top:14px;
+  padding:10px 12px;
+  border:1px solid rgba(8,27,61,.12);
+  border-radius:14px;
+  background:#fff;
+}
+.deckSwitcher>span{
+  color:#6a7280;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.08em;
+}
+.deckSwitcher>div{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6px;
+  min-width:210px;
+  padding:4px;
+  border-radius:999px;
+  background:#eef1f5;
+}
+.deckSwitcher button{
+  border:0;
+  border-radius:999px;
+  padding:8px 12px;
+  background:transparent;
+  color:#5b6475;
+  font-size:12px;
+  font-weight:900;
+  cursor:pointer;
+}
+.deckSwitcher button.active{
+  background:#081b3d;
+  color:#fff;
+  box-shadow:0 5px 12px rgba(8,27,61,.18);
+}
+@media(max-width:720px){
+  .deckLauncherCard{padding:28px 20px}
+  .deckLauncherChoices{grid-template-columns:1fr}
+  .deckChoice{min-height:120px}
+  .deckSwitcher{align-items:flex-start;flex-direction:column}
+  .deckSwitcher>div{width:100%;min-width:0}
+}
