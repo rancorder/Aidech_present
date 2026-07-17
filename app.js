@@ -1,5 +1,5 @@
 const q=new URLSearchParams(location.search),deck=q.get('deck')==='corporate'?'corporate':'store',audienceMode=q.get('view')==='audience';
-const source=deck==='corporate'?'./corporate/slides.json':'./slides.json',channel=`aidech-${deck}-v5`,syncKey=`${channel}-state`;
+const source=deck==='corporate'?'./corporate/slides.json':'./slides.json',channel=`aidech-${deck}-v6`,syncKey=`${channel}-state`;
 const bc='BroadcastChannel'in window?new BroadcastChannel(channel):null;
 let slides=[],current=0,audienceWindow=null,started=Date.now();
 const pad=n=>String(n).padStart(2,'0');
@@ -7,21 +7,30 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const br=s=>esc(s).replaceAll('\n','<br>');
 
 async function boot(){
-  const r=await fetch(source);if(!r.ok)throw Error(`${source} を読み込めません`);
+  const r=await fetch(source,{cache:'no-store'});if(!r.ok)throw Error(`${source} を読み込めません`);
   const data=await r.json();
-  slides=data.map((s,i)=>{const id=s.id||i+1,corp=deck==='corporate';return{...s,id,image:corp?`corporate/images/${id}.svg`:(s.image||`images/${id}.png`),video:corp?'':(s.video===undefined?`images/${id}.mp4`:s.video),hasVideo:false,checked:corp||s.video===''};});
+  slides=data.map((s,i)=>{
+    const id=s.id||i+1,corp=deck==='corporate';
+    return{
+      ...s,
+      id,
+      image:corp?`corporate/images/${id}.png?v=20260717-2`:(s.image||`images/${id}.png`),
+      video:corp?'':(s.video===undefined?`images/${id}.mp4`:s.video),
+      hasVideo:false,
+      checked:corp||s.video===''
+    };
+  });
   const h=Number(location.hash.replace('#s',''));if(Number.isInteger(h)&&h>=0&&h<slides.length)current=h;
   document.title=`Aidech Management｜${deck==='corporate'?'企業向け':'店舗向け'} 台本操作型 Web Slides`;
   audienceMode?renderAudience():renderPresenter();
 }
 function media(s,i){return `<div class="media use-image ${i===current?'active':''}" data-i="${i}"><img src="${esc(s.image)}" alt="${esc(s.title)}"><video data-v="${i}" src="${esc(s.video)}" poster="${esc(s.image)}" muted playsinline preload="metadata" loop></video></div>`;}
-function stage(){return `<div class="stage deck-${deck}"><div class="progressTrack"><div class="progress"></div></div>${slides.map(media).join('')}<div class="counter">01 / ${pad(slides.length)}</div></div>`;}
+function stage(){return `<div class="stage deck-${deck}"><div class="progressTrack"><div class="progress"></div></div>${slides.map(media).join('')}</div>`;}
 function mediaText(i){return slides[i].hasVideo?'VIDEO / MP4自動再生':'IMAGE / 高品質スライド';}
 function setSlide(n,origin='local'){
   if(n<0||n>=slides.length)return;current=n;
   document.querySelectorAll('.media').forEach((m,i)=>{m.classList.toggle('active',i===current);m.classList.toggle('use-video',i===current&&slides[i].hasVideo);m.classList.toggle('use-image',!(i===current&&slides[i].hasVideo));});
   document.querySelectorAll('.progress').forEach(x=>x.style.width=`${(current+1)/slides.length*100}%`);
-  document.querySelectorAll('.counter').forEach(x=>x.textContent=`${pad(current+1)} / ${pad(slides.length)}`);
   document.querySelectorAll('.cue').forEach((x,i)=>x.classList.toggle('active',i===current));
   videos();history.replaceState(null,'',`#s${current}`);
   const c=document.querySelector('.cue.active');if(c&&origin==='local')c.scrollIntoView({block:'center',behavior:'smooth'});
